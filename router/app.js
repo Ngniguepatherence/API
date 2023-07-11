@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
 const FormData = require('form-data');
 require('dotenv').config();
-const upload = require('../models/model');
+const upload = require("../models/model");
 
 router.get('/', (req, res) => {
     res.send('hello world')
@@ -62,9 +61,7 @@ router.post('/generative-image',async (req,res) => {
         const { artifacts } = await response.json();
 
         artifacts.forEach((image, index) => {
-            fs.writeFileSync(
-                `${req.body.text}.png`,
-                Buffer.from(image.base64, 'base64')
+            console.log("Success");
             );
         });
 
@@ -109,7 +106,8 @@ router.post('/generative-images', upload.single("init_image"), async (req, res) 
         const responseJSON = await response.json();
     
         responseJSON.artifacts.forEach((image, index) => {
-          fs.writeFileSync(`../out/${req.body.text}.png`, Buffer.from(image.base64, 'base64'));
+          // fs.writeFileSync(`../out/${req.body.text}.png`, Buffer.from(image.base64, 'base64'));
+            console.log("success");
         });
     
         res.status(200).json({ message: 'Images generated successfully.' });
